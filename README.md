@@ -1,15 +1,124 @@
-# React + TypeScript + Vite
+# WX — Hava Durumu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Minimal, hızlı ve tek sayfalık hava durumu uygulaması.  
+> 200.000+ şehir · Gerçek zamanlı veriler · Favori & Geçmiş · Konum algılama
 
-Currently, two official plugins are available:
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646cff?style=flat-square&logo=vite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-d4ff00?style=flat-square)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Önizleme
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Landing | Uygulama |
+|---|---|
+| Hero, özellikler, adımlar ve CTA bölümleri | Şehir arama, anlık veri kartları |
+
+---
+
+## Özellikler
+
+- **Anlık Hava Durumu** — OpenWeatherMap `data/2.5/weather` API'si ile sıcaklık, nem, rüzgar, basınç, görüş mesafesi, bulutluluk, gün doğumu/batımı
+- **Konum Algılama** — Tarayıcı Geolocation API ile tek tıkta otomatik şehir tespiti
+- **Favori Şehirler** — `localStorage` ile kalıcı favori listesi, yıldız ikonuyla ekle/çıkar
+- **Arama Geçmişi** — Son 8 arama `localStorage`'a kaydedilir, hızlı erişim paneli
+- **Hava Teması** — Hava durumuna göre dinamik accent rengi (açık → sarı, yağmur → mavi, fırtına → mor, kar → buz mavisi …)
+- **Landing Page** — Tek sayfa kaydırmalı tanıtım; Nav, Hero, Stats, Features, Ticker, How-it-Works, CTA Banner ve Footer
+- **Tam Responsive** — 480px'e kadar uyumlu grid ve layout sistemi
+
+---
+
+## Teknoloji Yığını
+
+| Katman | Teknoloji |
+|---|---|
+| UI | React 19 + TypeScript 5.9 |
+| Build | Vite 8 (beta) |
+| Paket Yöneticisi | Bun |
+| Routing | React Router DOM 7 |
+| İkonlar | React Icons 5 (wi, tb) |
+| Stil | Vanilla CSS — token tabanlı tema sistemi |
+| API | OpenWeatherMap REST API (Current Weather) |
+
+---
+
+## Başlarken
+
+### Gereksinimler
+
+- [Bun](https://bun.sh) ≥ 1.0 veya Node.js ≥ 18
+- OpenWeatherMap API anahtarı ([ücretsiz](https://openweathermap.org/appid))
+
+### Kurulum
+
+```bash
+# Depoyu klonla
+git clone https://github.com/firatmio/wx-havadurumu.git
+cd wx-havadurumu
+
+# Bağımlılıkları yükle
+bun install
+
+# Geliştirme sunucusunu başlat
+bun dev
+```
+
+### API Anahtarı
+
+[src/App.tsx](src/App.tsx) dosyasındaki `API_KEY` sabitini kendi anahtarınızla değiştirin:
+
+```ts
+const API_KEY = 'BURAYA_API_ANAHTARINIZI_YAZIN'
+```
+
+> **Not:** Üretim ortamı için API anahtarını bir `.env` dosyasına taşımanız önerilir.
+
+### Derleme
+
+```bash
+# Üretim build
+bun run build
+
+# Build önizleme
+bun run preview
+```
+
+---
+
+## Proje Yapısı
+
+```
+weather/
+├── src/
+│   ├── main.tsx          # Uygulama giriş noktası, router kurulumu
+│   ├── App.tsx           # Hava durumu uygulama bileşeni
+│   ├── App.css           # Uygulama stilleri (token tabanlı)
+│   ├── Landing.tsx       # Landing page bileşeni
+│   ├── Landing.css       # Landing page stilleri
+│   └── index.css         # Global stiller
+├── index.html
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
+```
+
+---
+
+## Rotalar
+
+| Rota | Bileşen | Açıklama |
+|---|---|---|
+| `/` | `Landing` | Tanıtım sayfası |
+| `/app` | `App` | Hava durumu uygulaması |
+
+---
+
+## Lisans
+
+Bu proje [MIT](LICENSE) lisansı kapsamında dağıtılmaktadır.
+
 
 ## Expanding the ESLint configuration
 
