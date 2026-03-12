@@ -4,11 +4,6 @@ import {
   WiRain,
   WiSnow,
   WiThunderstorm,
-  WiStrongWind,
-  WiHumidity,
-  WiBarometer,
-  WiSunrise,
-  WiSunset,
 } from 'react-icons/wi'
 import {
   TbMapPin,
@@ -78,17 +73,6 @@ const STATS = [
   { val: '99.9%', label: 'Uptime' },
   { val: '<1s', label: 'Yanıt Süresi' },
   { val: '½s', label: 'Güncelleme' },
-]
-
-const METRICS = [
-  { icon: <WiHumidity size={32} />, label: 'Nem' },
-  { icon: <WiStrongWind size={32} />, label: 'Rüzgar' },
-  { icon: <WiBarometer size={32} />, label: 'Basınç' },
-  { icon: <WiSunrise size={32} />, label: 'Gün Doğumu' },
-  { icon: <WiSunset size={32} />, label: 'Gün Batımı' },
-  { icon: <WiThunderstorm size={32} />, label: 'Fırtına' },
-  { icon: <WiRain size={32} />, label: 'Yağış' },
-  { icon: <WiSnow size={32} />, label: 'Kar' },
 ]
 
 export default function Landing() {
