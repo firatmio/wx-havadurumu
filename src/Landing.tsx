@@ -81,7 +81,7 @@ export default function Landing() {
   return (
     <div className="lp">
       {/* ── NAV ─────────────────────────────────────── */}
-      <nav className="lp-nav">
+      <nav className="lp-nav" aria-label="Ana navigasyon">
         <span className="lp-logo">WX</span>
         <div className="lp-nav-links">
           <a href="#features" className="lp-nav-link">Özellikler</a>
@@ -92,7 +92,7 @@ export default function Landing() {
           Uygulamayı Aç <TbArrowUpRight size={14} />
         </button>
       </nav>
-
+      <main id="main-content">
       {/* ── HERO ────────────────────────────────────── */}
       <section className="lp-hero">
         <div className="lp-hero-badge">Gerçek Zamanlı Hava Bilgisi</div>
@@ -166,7 +166,7 @@ export default function Landing() {
         <div className="lp-steps">
           {STEPS.map(({ num, title, desc }) => (
             <div key={num} className="lp-step">
-              <span className="lp-step-num">{num}</span>
+              <span className="lp-step-num" aria-hidden="true">{num}</span>
               <div className="lp-step-body">
                 <h3 className="lp-step-title">{title}</h3>
                 <p className="lp-step-desc">{desc}</p>
@@ -192,8 +192,7 @@ export default function Landing() {
           <WiThunderstorm className="lp-deco-icon lp-deco-4" />
         </div>
       </section>
-
-      {/* ── FOOTER ──────────────────────────────────── */}
+      </main>      {/* ── FOOTER ──────────────────────────────────── */}
       <footer className="lp-footer">
         <span className="lp-logo">WX</span>
         <span className="lp-footer-copy">© 2026 · OpenWeatherMap verileri kullanılmaktadır.</span>

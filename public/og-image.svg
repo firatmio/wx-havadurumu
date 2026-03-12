@@ -1,0 +1,43 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0d0d0d"/>
+
+  <!-- Border frame -->
+  <rect x="0" y="0" width="1200" height="1" fill="#1e1e1e"/>
+  <rect x="0" y="629" width="1200" height="1" fill="#1e1e1e"/>
+  <rect x="0" y="0" width="1" height="630" fill="#1e1e1e"/>
+  <rect x="1199" y="0" width="1" height="630" fill="#1e1e1e"/>
+
+  <!-- Decorative sun rings (right side) -->
+  <circle cx="1020" cy="220" r="240" fill="none" stroke="#ffcc00" stroke-width="1" opacity="0.05"/>
+  <circle cx="1020" cy="220" r="170" fill="none" stroke="#ffcc00" stroke-width="1" opacity="0.07"/>
+  <circle cx="1020" cy="220" r="100" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.1"/>
+  <circle cx="1020" cy="220" r="50"  fill="#ffcc00" opacity="0.05"/>
+
+  <!-- WX badge -->
+  <text x="80" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="10" fill="#ffcc00">WX</text>
+  <rect x="80" y="104" width="320" height="1" fill="#1e1e1e"/>
+
+  <!-- Main headline -->
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="900" fill="#f0f0f0" letter-spacing="-3">HAVA</text>
+  <text x="80" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="900" fill="#ffcc00" letter-spacing="-3">DURUMU</text>
+
+  <!-- Separator -->
+  <rect x="80" y="412" width="480" height="1" fill="#1e1e1e"/>
+
+  <!-- Tagline -->
+  <text x="80" y="455" font-family="system-ui, -apple-system, sans-serif" font-size="17" fill="#666666" letter-spacing="3">200.000+ ŞEHİR  ·  GERÇEK ZAMANLI  ·  KONUM ALGILAMA</text>
+
+  <!-- Stats row -->
+  <text x="80"  y="542" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffcc00">200K+</text>
+  <text x="80"  y="564" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#444444" letter-spacing="3">ŞEHİR</text>
+
+  <text x="230" y="542" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffcc00">99.9%</text>
+  <text x="230" y="564" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#444444" letter-spacing="3">UPTIME</text>
+
+  <text x="390" y="542" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffcc00">&lt;1s</text>
+  <text x="390" y="564" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#444444" letter-spacing="3">YANIT</text>
+
+  <!-- Domain -->
+  <text x="80" y="604" font-family="monospace, 'Courier New'" font-size="13" fill="#2a2a2a" letter-spacing="2">wx-weather.vercel.app</text>
+</svg>

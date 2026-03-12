@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wx-weather.vercel.app/sitemap.xml

@@ -1,15 +1,69 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WX — Hava Durumu</title>
+
+    <!-- ─── Primary SEO ────────────────────────────── -->
+    <title>WX — Gerçek Zamanlı Hava Durumu | 200.000+ Şehir</title>
+    <meta name="description" content="Dünyanın 200.000+ şehrinin anlık hava durumunu görüntüleyin. Sıcaklık, nem, rüzgar, basınç ve daha fazlası. GPS konum algılama, favori şehirler ve akıllı arama önerileriyle hızlı hava takibi." />
+    <meta name="author" content="WX Weather" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <link rel="canonical" href="https://wx-weather.vercel.app/" />
+
+    <!-- ─── Open Graph ──────────────────────────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WX Weather" />
+    <meta property="og:title" content="WX — Gerçek Zamanlı Hava Durumu" />
+    <meta property="og:description" content="200.000+ şehirde anlık hava durumu. GPS konum algılama, favori şehirler, arama önerileri ve renk temalı arayüzle hava takibini yeniden keşfedin." />
+    <meta property="og:url" content="https://wx-weather.vercel.app/" />
+    <meta property="og:image" content="https://wx-weather.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="WX — Gerçek Zamanlı Hava Durumu Uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+
+    <!-- ─── Twitter / X Card ───────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WX — Gerçek Zamanlı Hava Durumu" />
+    <meta name="twitter:description" content="200.000+ şehirde anlık hava durumu. GPS konum algılama ve favori şehirlerle hızlı erişim." />
+    <meta name="twitter:image" content="https://wx-weather.vercel.app/og-image.svg" />
+    <meta name="twitter:image:alt" content="WX — Gerçek Zamanlı Hava Durumu" />
+
+    <!-- ─── Icons & PWA ─────────────────────────────── -->
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0d0d0d" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="WX" />
+
+    <!-- ─── Fonts ───────────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=optional" rel="stylesheet" />
+
+    <!-- ─── Structured Data ─────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "WX — Hava Durumu",
+      "url": "https://wx-weather.vercel.app/",
+      "description": "Dünyanın 200.000+ şehrinin anlık hava durumunu görüntüleyin.",
+      "applicationCategory": "UtilitiesApplication",
+      "browserRequirements": "Requires JavaScript",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" },
+      "inLanguage": "tr",
+      "author": { "@type": "Person", "name": "firatmio" }
+    }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">İçeriğe geç</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

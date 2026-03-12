@@ -177,6 +177,7 @@ export default function App() {
       setWeather(data)
       setQuery(data.name)
       addToHistory(data.name)
+      document.title = `${data.name} Hava Durumu | WX`
       navigate(`/app?city=${encodeURIComponent(data.name)}`, { replace: true })
     } catch (err) {
       setError((err as Error).message)
@@ -299,6 +300,7 @@ export default function App() {
               }
             }}
             className="search-form"
+            role="search"
           >
             <input
               ref={inputRef}
@@ -315,8 +317,13 @@ export default function App() {
               className="search-input"
               autoComplete="off"
               spellCheck={false}
+              aria-label="Şehir ara"
+              role="combobox"
+              aria-haspopup="listbox"
               aria-autocomplete="list"
               aria-expanded={showSuggestions}
+              aria-controls="city-suggestions"
+              aria-activedescendant={activeIndex >= 0 ? `suggestion-${activeIndex}` : undefined}
             />
             <button type="submit" className="search-btn" disabled={loading} aria-label="Ara">
               {loading ? <span className="search-spinner" /> : <span className="search-arrow"><FaArrowRight size={14} /></span>}
@@ -324,9 +331,10 @@ export default function App() {
           </form>
 
           {showSuggestions && suggestions.length > 0 && (
-            <ul className="suggestions" role="listbox">
+            <ul id="city-suggestions" className="suggestions" role="listbox">
               {suggestions.map((s, i) => (
                 <li
+                  id={`suggestion-${i}`}
                   key={`${s.lat}-${s.lon}`}
                   role="option"
                   aria-selected={i === activeIndex}
@@ -344,7 +352,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="main">
+      <main className="main" id="main-content">
         {!weather && !loading && !error && !showPanel && (
           <div className="idle-state">
             <p className="idle-hint">İstanbul, Tokyo, New York...</p>

@@ -26,3 +26,22 @@ body {
 input, button {
   font-family: inherit;
 }
+
+/* ─── Skip link ───────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.625rem 1.25rem;
+  background: #ffcc00;
+  color: #0d0d0d;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  user-select: text;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}

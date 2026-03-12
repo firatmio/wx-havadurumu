@@ -1,0 +1,18 @@
+{
+  "name": "WX — Gerçek Zamanlı Hava Durumu",
+  "short_name": "WX",
+  "description": "200.000+ şehirde anlık hava durumu uygulaması",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
