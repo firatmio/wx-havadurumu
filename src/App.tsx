@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { TbArrowLeft } from 'react-icons/tb'
 import { FaArrowRight } from 'react-icons/fa'
 import './App.css'
@@ -85,6 +85,7 @@ function loadStorage<T>(key: string, fallback: T): T {
 
 export default function App() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const [weather, setWeather] = useState<WeatherData | null>(null)
   const [loading, setLoading] = useState(false)
@@ -99,6 +100,7 @@ export default function App() {
   const searchWrapRef = useRef<HTMLDivElement>(null)
   const savedQueryRef = useRef('')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const initialFetchDone = useRef(false)
 
   const addToHistory = useCallback((cityName: string) => {
     setHistory(prev => {
@@ -106,6 +108,19 @@ export default function App() {
       localStorage.setItem('wx-history', JSON.stringify(next))
       return next
     })
+  }, [])
+
+  // URL'deki şehri ilk yüklemede fetch et
+  useEffect(() => {
+    if (initialFetchDone.current) return
+    initialFetchDone.current = true
+    const cityParam = searchParams.get('city')
+    if (cityParam) {
+      fetchWeatherData(
+        `${API_BASE}/weather?q=${encodeURIComponent(cityParam)}&appid=${API_KEY}&units=metric`
+      )
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Dışarı tıklanınca dropdown kapat
@@ -162,6 +177,7 @@ export default function App() {
       setWeather(data)
       setQuery(data.name)
       addToHistory(data.name)
+      navigate(`/app?city=${encodeURIComponent(data.name)}`, { replace: true })
     } catch (err) {
       setError((err as Error).message)
       setWeather(null)
