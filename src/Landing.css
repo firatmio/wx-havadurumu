@@ -20,7 +20,7 @@
     font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: 0.3em;
-    color: var(--accent, #d4ff00);
+    color: var(--accent, #ffcc00);
     user-select: none;
     flex-shrink: 0;
 }
@@ -61,8 +61,8 @@
 }
 
 .lp-cta-sm:hover {
-    border-color: #d4ff00;
-    color: #d4ff00;
+    border-color: #ffcc00;
+    color: #ffcc00;
 }
 
 /* ── Hero ────────────────────────────────────────── */
@@ -89,7 +89,7 @@
 .lp-hero-badge {
     font-size: 0.625rem;
     letter-spacing: 0.3em;
-    color: #d4ff00;
+    color: #ffcc00;
     border: 1px solid rgba(212, 255, 0, 0.25);
     padding: 0.35rem 1rem;
     text-transform: uppercase;
@@ -107,7 +107,7 @@
 }
 
 .lp-accent {
-    color: #d4ff00;
+    color: #ffcc00;
 }
 
 .lp-hero-sub {
@@ -133,7 +133,7 @@
 }
 
 .lp-btn-primary {
-    background: #d4ff00;
+    background: #ffcc00;
     color: #0d0d0d;
     border: none;
     cursor: pointer;
@@ -241,7 +241,7 @@
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: #d4ff00;
+    color: #ffcc00;
     line-height: 1;
     font-variant-numeric: tabular-nums;
 }
@@ -269,7 +269,7 @@
 .lp-section-tag {
     font-size: 0.5625rem;
     letter-spacing: 0.3em;
-    color: #d4ff00;
+    color: #ffcc00;
     text-transform: uppercase;
     display: block;
     margin-bottom: 1rem;
@@ -314,7 +314,7 @@
 }
 
 .lp-feature-icon {
-    color: #d4ff00;
+    color: #ffcc00;
     display: flex;
     align-items: center;
     opacity: 0.9;
@@ -371,7 +371,7 @@
 }
 
 .lp-step:hover .lp-step-num {
-    color: #d4ff00;
+    color: #ffcc00;
 }
 
 .lp-step-body {
