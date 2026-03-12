@@ -1,0 +1,28 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+/* Landing page scroll reset */
+.lp { overflow-y: auto; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0d0d0d;
+  color: #f0f0f0;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input, button {
+  font-family: inherit;
+}
