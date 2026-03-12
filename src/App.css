@@ -44,12 +44,19 @@
   user-select: none;
 }
 
+/* ─── Search wrapper (relative for dropdown) ─────── */
+.search-wrap {
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 /* ─── Search ─────────────────────────────────────── */
 .search-form {
   display: flex;
   align-items: center;
   gap: 0;
-  margin-left: auto;
   border-bottom: 1px solid var(--muted);
   transition: border-color 0.2s;
 }
@@ -313,6 +320,60 @@
   width: 1.5rem;
   height: 1px;
   background: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ─── Suggestions dropdown ───────────────────────── */
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #141414;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: fadeUp 0.15s ease both;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover,
+.suggestion-item--active {
+  background: var(--muted);
+}
+.suggestion-item--active .suggestion-name {
+  color: var(--accent);
+}
+
+.suggestion-name {
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--fg);
+  transition: color 0.12s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-meta {
+  font-size: 0.5625rem;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+  text-transform: uppercase;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 

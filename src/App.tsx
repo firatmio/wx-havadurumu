@@ -1,10 +1,20 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TbArrowLeft } from 'react-icons/tb'
+import { FaArrowRight } from 'react-icons/fa'
 import './App.css'
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY as string
 const API_BASE = 'https://api.openweathermap.org/data/2.5'
+const GEO_BASE = 'https://api.openweathermap.org/geo/1.0'
+
+interface GeoSuggestion {
+  name: string
+  country: string
+  state?: string
+  lat: number
+  lon: number
+}
 
 interface WeatherData {
   name: string
@@ -82,7 +92,13 @@ export default function App() {
   const [locLoading, setLocLoading] = useState(false)
   const [history, setHistory] = useState<string[]>(() => loadStorage('wx-history', []))
   const [favorites, setFavorites] = useState<string[]>(() => loadStorage('wx-favorites', []))
+  const [suggestions, setSuggestions] = useState<GeoSuggestion[]>([])
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const [showSuggestions, setShowSuggestions] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const searchWrapRef = useRef<HTMLDivElement>(null)
+  const savedQueryRef = useRef('')
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const addToHistory = useCallback((cityName: string) => {
     setHistory(prev => {
@@ -92,9 +108,49 @@ export default function App() {
     })
   }, [])
 
+  // Dışarı tıklanınca dropdown kapat
+  useEffect(() => {
+    function onOutsideClick(e: MouseEvent) {
+      if (searchWrapRef.current && !searchWrapRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false)
+        setActiveIndex(-1)
+      }
+    }
+    document.addEventListener('mousedown', onOutsideClick)
+    return () => document.removeEventListener('mousedown', onOutsideClick)
+  }, [])
+
+  // Debounced geocoding fetch
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    const trimmed = savedQueryRef.current || query
+    if (trimmed.trim().length < 2) {
+      setSuggestions([])
+      setShowSuggestions(false)
+      return
+    }
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `${GEO_BASE}/direct?q=${encodeURIComponent(trimmed.trim())}&limit=6&appid=${API_KEY}`
+        )
+        if (!res.ok) return
+        const data: GeoSuggestion[] = await res.json()
+        setSuggestions(data)
+        setShowSuggestions(data.length > 0)
+      } catch {
+        // sessizce yoksay
+      }
+    }, 280)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [query])
+
   const fetchWeatherData = useCallback(async (url: string) => {
     setLoading(true)
     setError(null)
+    setSuggestions([])
+    setShowSuggestions(false)
+    setActiveIndex(-1)
     try {
       const res = await fetch(url)
       if (!res.ok) {
@@ -116,8 +172,48 @@ export default function App() {
 
   const fetchWeather = useCallback((city: string) => {
     if (!city.trim()) return
+    savedQueryRef.current = ''
     fetchWeatherData(`${API_BASE}/weather?q=${encodeURIComponent(city.trim())}&appid=${API_KEY}&units=metric`)
   }, [fetchWeatherData])
+
+  const selectSuggestion = useCallback((s: GeoSuggestion) => {
+    const label = s.state ? `${s.name}, ${s.state}, ${s.country}` : `${s.name}, ${s.country}`
+    setQuery(label)
+    savedQueryRef.current = ''
+    setSuggestions([])
+    setShowSuggestions(false)
+    setActiveIndex(-1)
+    fetchWeatherData(`${API_BASE}/weather?lat=${s.lat}&lon=${s.lon}&appid=${API_KEY}&units=metric`)
+  }, [fetchWeatherData])
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      const next = activeIndex < suggestions.length - 1 ? activeIndex + 1 : activeIndex
+      if (activeIndex === -1) savedQueryRef.current = query
+      setActiveIndex(next)
+      setQuery(suggestions[next].name)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (activeIndex <= 0) {
+        setActiveIndex(-1)
+        setQuery(savedQueryRef.current)
+        savedQueryRef.current = ''
+      } else {
+        const prev = activeIndex - 1
+        setActiveIndex(prev)
+        setQuery(suggestions[prev].name)
+      }
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false)
+      setActiveIndex(-1)
+      if (savedQueryRef.current) {
+        setQuery(savedQueryRef.current)
+        savedQueryRef.current = ''
+      }
+    }
+  }, [showSuggestions, suggestions, activeIndex, query])
 
   const fetchByLocation = useCallback(() => {
     if (!navigator.geolocation) {
@@ -176,21 +272,60 @@ export default function App() {
           {locLoading ? <span className="search-spinner" /> : '◎'}
         </button>
 
-        <form onSubmit={(e) => { e.preventDefault(); fetchWeather(query) }} className="search-form">
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="şehir gir..."
-            className="search-input"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          <button type="submit" className="search-btn" disabled={loading} aria-label="Ara">
-            {loading ? <span className="search-spinner" /> : <span className="search-arrow">→</span>}
-          </button>
-        </form>
+        <div className="search-wrap" ref={searchWrapRef}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              if (activeIndex >= 0 && suggestions[activeIndex]) {
+                selectSuggestion(suggestions[activeIndex])
+              } else {
+                fetchWeather(query)
+              }
+            }}
+            className="search-form"
+          >
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={e => {
+                savedQueryRef.current = ''
+                setActiveIndex(-1)
+                setQuery(e.target.value)
+              }}
+              onKeyDown={handleKeyDown}
+              onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true) }}
+              placeholder="şehir gir..."
+              className="search-input"
+              autoComplete="off"
+              spellCheck={false}
+              aria-autocomplete="list"
+              aria-expanded={showSuggestions}
+            />
+            <button type="submit" className="search-btn" disabled={loading} aria-label="Ara">
+              {loading ? <span className="search-spinner" /> : <span className="search-arrow"><FaArrowRight size={14} /></span>}
+            </button>
+          </form>
+
+          {showSuggestions && suggestions.length > 0 && (
+            <ul className="suggestions" role="listbox">
+              {suggestions.map((s, i) => (
+                <li
+                  key={`${s.lat}-${s.lon}`}
+                  role="option"
+                  aria-selected={i === activeIndex}
+                  className={`suggestion-item${i === activeIndex ? ' suggestion-item--active' : ''}`}
+                  onMouseDown={(e) => { e.preventDefault(); selectSuggestion(s) }}
+                >
+                  <span className="suggestion-name">{s.name}</span>
+                  <span className="suggestion-meta">
+                    {s.state ? `${s.state} · ` : ''}{s.country}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </header>
 
       <main className="main">
