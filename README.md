@@ -67,13 +67,13 @@ bun dev
 
 ### API Anahtarı
 
-[src/App.tsx](src/App.tsx) dosyasındaki `API_KEY` sabitini kendi anahtarınızla değiştirin:
+Proje kök dizininde `.env` dosyası oluşturun:
 
-```ts
-const API_KEY = 'BURAYA_API_ANAHTARINIZI_YAZIN'
+```bash
+VITE_OPENWEATHER_API_KEY=buraya_api_anahtarinizi_yazin
 ```
 
-> **Not:** Üretim ortamı için API anahtarını bir `.env` dosyasına taşımanız önerilir.
+> **Not:** `.env` dosyası `.gitignore`'a eklidir, git'e gitmez.
 
 ### Derleme
 

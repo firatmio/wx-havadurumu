@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { TbArrowLeft } from 'react-icons/tb'
 import './App.css'
 
-const API_KEY = 'cac081d65e8cd4a949efd7e6010387fa'
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY as string
 const API_BASE = 'https://api.openweathermap.org/data/2.5'
 
 interface WeatherData {
